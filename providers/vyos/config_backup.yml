@@ -1,0 +1,8 @@
+---
+# JunOs provider for doing config backup
+#
+- name: Backup Junos config to specified location
+  config_backup:
+    path: "{{ backup_config.path }}"
+    filename: "{{ backup_config.filename }}"
+    command: "show configuration"

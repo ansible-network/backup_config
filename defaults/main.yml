@@ -1,0 +1,11 @@
+---
+# defaults file for roles/backup-config
+
+{
+  "backup_config": {
+    "filename" : "config_{{ ansible_host }}.cfg",
+    "path" : "~/network_configs/",
+    "backup" : "yes"
+  }
+}
+

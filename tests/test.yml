@@ -1,0 +1,12 @@
+---
+- hosts: iosxr01 csr01
+  roles:
+    - backup-config
+  vars:
+        {
+          "backup_config": {
+            "filename" : "config_{{ ansible_host }}.cfg",
+            "path" : "~/network_configs_1/",
+            "backup" : "yes"
+          }
+        }
