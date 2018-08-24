@@ -1,0 +1,23 @@
+---
+- hosts: csr01
+  roles:
+    - backup_config
+  vars:
+      "backup_config": {
+        "filename" : "config_{{ ansible_host }}.cfg",
+        "path" : "~/network_configs_1/",
+        "extensions": {
+           "filters" : {
+              "lines": [
+                  "enable password",
+                  "username .*"
+               ],
+              "encrypt": {
+                 "key": "my_vault_key_16b"
+              }
+           },
+           "backup": {
+               "path": "~/network_configs_1/"
+           }
+        }
+      }

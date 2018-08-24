@@ -1,2 +1,4 @@
 ---
 # vars file for roles/backup-config
+
+ROLLBACK_ID_STR: '-Rollback-Seq-%d-'
