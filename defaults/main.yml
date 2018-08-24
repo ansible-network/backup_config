@@ -1,11 +1,22 @@
 ---
 # defaults file for roles/backup-config
 
-{
-  "backup_config": {
+
+"mode" : "backup"
+
+"backup_config": {
     "filename" : "config_{{ ansible_host }}.cfg",
     "path" : "~/network_configs/",
-    "backup" : "yes"
-  }
+    "backup" : "yes",
+    "extensions": {
+       "filters" : {
+           "lines": [
+                "enable password",
+                "username .*"
+            ],
+            "encypt": {
+                "key": "my_vault_key"
+            }
+       }
+    }
 }
-

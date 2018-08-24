@@ -1,20 +1,31 @@
 ---
 # tasks file for roles/backup-config
+#
 
-- name: "check for required fact: backup_config"
+- name: Set default mode to rollback if not defined
+  set_fact: 
+    mode : backup
+  when: mode is not defined
+
+- name: Check for required fact backup_config
   fail:
-    msg: "Missing required fact: filename, path"
-  when: not backup_config.filename or not backup_config.path 
+    msg: "Missing required fact: filename or path"
+  when: mode is match("backup") and
+        not backup_config.filename and
+        not backup_config.path
+
+- name: Check for required fact rollback_config
+  fail:
+    msg: "Missing required fact: path"
+  when: mode is match("rollback") and
+        not rollback_config.path
  
-- name: include device role specific tasks
-  include_tasks: "{{ item }}"
-  with_first_found:
-    - files:
-        - config_backup.yml
-      paths:
-        - "{{ playbook_dir }}/providers/{{ ansible_network_os }}"
-        - "~/.ansible/network/network-vlans/providers/{{ ansible_network_os }}"
-        - "/etc/ansible/network/network-vlans/providers/{{ ansible_network_os }}"
-        - "{{ role_path }}/providers/{{ ansible_network_os }}"
+- name: include device specific tasks to backup config
+  include_tasks: config_backup.yml
+  when: mode is match("backup")
+
+- name: include device specific tasks to rollback config
+  include_tasks: config_rollback.yml
+  when: mode is match("rollback")
  
 

@@ -1,0 +1,14 @@
+---
+- hosts: csr01
+  roles:
+    - backup_config
+  vars:
+      "backup_config": {
+        "filename" : "config_{{ ansible_host }}.cfg",
+        "path" : "~/network_configs_1/",
+        "extensions": {
+           "backup": {
+               "path": "~/network_configs_1/"
+           }
+        }
+      }

@@ -1,9 +1,0 @@
----
-# IOSxr provider for doing config backup
-#
-- name: Backup Ios-xr config to specified location
-  config_backup:
-    path: "{{ backup_config.path }}"
-    filename: "{{ backup_config.filename }}"
-    backup: "{{ backup_config.backup }}"
-    command: "show running-config"
