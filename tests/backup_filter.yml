@@ -15,9 +15,6 @@
               "encrypt": {
                  "key": "my_vault_key_16b"
               }
-           },
-           "backup": {
-               "path": "~/network_configs_1/"
            }
         }
       }
