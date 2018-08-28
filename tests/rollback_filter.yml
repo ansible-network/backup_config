@@ -6,8 +6,8 @@
     - mode: "rollback"
     - rollback_config: {
         "path" : "~/network_configs_1/",
+        "filename": "config_{{ ansible_host }}.cfg",
         "extensions": {
-           "sequence": 1,
            "filters": {
               "decrypt": {
                 "key": "my_vault_key_16b"

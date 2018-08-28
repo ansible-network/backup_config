@@ -1,0 +1,10 @@
+---
+- hosts: csr01
+  roles:
+    - backup_config
+  vars:
+    - mode: "rollback"
+    - rollback_config: {
+        "path" : "~/network_configs_1/",
+        "filename": "config_{{ ansible_host }}.cfg"
+      }

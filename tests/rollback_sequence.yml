@@ -7,11 +7,6 @@
     - rollback_config: {
         "path" : "~/network_configs_1/",
         "extensions": {
-           "sequence": 4,
-           "filters": {
-              "decrypt": {
-                "key": "my_vault_key_16b"
-              }
-           }
+           "sequence": 1,
         }
       }
