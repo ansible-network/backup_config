@@ -45,8 +45,16 @@ class ActionModule(ActionBase):
 
     def run(self, tmp=None, task_vars=None):
         changed = False
-        backupfile = None
         socket_path = None
+
+        # Role Extensions vars
+        backupfile = None
+        backup_dict = None
+        backup_path = None
+        config_filters = None
+        config_encrypt = None
+        rollback_id_str = None
+
         play_context = copy.deepcopy(self._play_context)
 
         result = super(ActionModule, self).run(task_vars=task_vars)
@@ -71,9 +79,16 @@ class ActionModule(ActionBase):
 
         extensions = self._task.args.get('extensions')
 
-        backup_dict = extensions.get('backup')
-        backup_path = backup_dict.get('path')
-        backup_path = unfrackpath(backup_path)
+        if extensions:
+            backup_dict = extensions.get('backup')
+            if backup_dict:
+                backup_path = backup_dict.get('path')
+            if backup_path:
+                backup_path = unfrackpath(backup_path)
+            filters_ext = extensions.get('filters')
+            if filters_ext:
+                config_filters = filters_ext.get("lines")
+                config_encrypt = filters_ext.get("encrypt")
 
         if backup_dict:
             backup = True
@@ -82,13 +97,6 @@ class ActionModule(ActionBase):
                 return {'failed': True, 'msg': 'VAR to write backup is not defined'}
         else:
             backup = False
-       
-        config_filters = None
-        config_encrypt = None
-        filters_ext = extensions.get('filters')
-        if filters_ext:
-            config_filters = filters_ext.get("lines")
-            config_encrypt = filters_ext.get("encrypt")
 
         path = to_bytes(path, errors='surrogate_or_strict')
         path = unfrackpath(path)

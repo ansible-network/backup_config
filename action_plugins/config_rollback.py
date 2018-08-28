@@ -69,6 +69,7 @@ class ActionModule(ActionBase):
         config_decrypt = None
         seq_backup = None
         ext = self._task.args.get('extensions')
+        q(ext)
         if ext:
             filters_ext = ext.get('filters')
             if filters_ext:
