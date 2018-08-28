@@ -1,5 +1,5 @@
 ---
-- hosts: csr01 csr02
+- hosts: csr01
   roles:
     - backup_config
   vars:

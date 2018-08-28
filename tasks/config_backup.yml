@@ -17,8 +17,7 @@
   meta: end_play
   when: ext is defined
 
-- name: Backup IOS config to specified location
+- name: Backup Device config to specified location
   config_backup:
     path: "{{ backup_config.path }}"
     filename: "{{ backup_config.filename }}"
-    backup: "{{ backup_config.backup }}"

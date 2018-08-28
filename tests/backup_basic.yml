@@ -1,7 +1,7 @@
 ---
 - hosts: csr01
   roles:
-    - backup-config
+    - backup_config
   vars:
         {
           "backup_config": {

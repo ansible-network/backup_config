@@ -1,25 +1,29 @@
 ---
-# IOS provider for doing config backup
+# NetworkDevice provider for doing config backup
 #
 
 - name: set extensions if present
   set_fact: ext="{{ rollback_config.extensions }}"
   when: rollback_config.extensions is defined
 
-- name: Rollback IOS config with specified filename with encrypted configs
+- name: set filename if present
+  set_fact: filename="{{ rollback_config.filename }}"
+  when: rollback_config.filename is defined
+
+- name: Rollback NetworkDevice config with specified filename with encrypted configs
   config_rollback:
     path: "{{ rollback_config.path }}"
     filename: "{{ rollback_config.filename }}"
-    exensions: "{{ ext }}"
+    extensions: "{{ ext }}"
   when: ext is defined and filename is defined
 
-- name: Rollback IOS config from specified backup sequence
+- name: Rollback NetworkDevice config from specified backup sequence
   config_rollback:
     path: "{{ rollback_config.path }}"
     extensions: "{{ ext }}"
   when: ext is defined and filename is not defined
 
-- name: Rollback IOS config from disk
+- name: Rollback NetworkDevice config from disk
   config_rollback:
     path: "{{ rollback_config.path }}"
     filename: "{{ rollback_config.filename }}"
