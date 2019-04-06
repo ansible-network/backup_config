@@ -1,7 +1,7 @@
 backup_config
 =========
 
-Role to collect the current device configurations and store it on the Ansible
+Role to collects the current device configurations and store it on the Ansible
 controller with a user specific backup filename and path. It copies running-config
 from remote device via SSH so it works only with network_cli connections.
 More info about using network_cli connection to connect to network device can be
